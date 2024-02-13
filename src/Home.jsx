@@ -17,7 +17,7 @@ const Home = () => {
             })
         }, 1500)
 
-    })
+    },[])
 
     return (
         <div className="home">

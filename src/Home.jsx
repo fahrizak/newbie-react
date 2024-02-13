@@ -1,35 +1,11 @@
 import { useEffect, useState } from 'react';
 import BlogList from './BlogList';
+import useFetch from './useFetch';
 
 
 const Home = () => {
-    const [blogs, SetBlogs] = useState(null)
-    const [isPending, SetIsPending] = useState(true)
-    const [error, SetError] = useState(null)
 
-    useEffect(() => {
-        
-        setTimeout(() => {
-            fetch('http://localhost:8000/blogs')
-            .then(res => {
-                if (!res.ok){
-                    throw Error('Sorry Ada Eror pada server')
-                }
-                return res.json()
-            })
-            .then(data => {
-                SetBlogs(data)
-                SetIsPending(false)
-                SetError(null)
-            })
-            .catch(err => {
-                console.log(err.message)
-                SetError(err.message)
-                SetIsPending(false)
-            })
-        }, 1500)
-
-    },[])
+    const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs')
 
     return (
         <div className="home">
